@@ -139,7 +139,7 @@ async function fetchCityName(lat, lng, lang) {
   const locale = lang === "zh" ? "zh" : lang === "ja" ? "ja" : "en";
   const res = await fetch(
     `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=${locale}`,
-    { headers: { "User-Agent": "TravelNoteApp/4.0" } }
+    /*{ headers: { "User-Agent": "TravelNoteApp/4.0" } }*/ //消した方が良いらしい
   );
   const data = await res.json();
   const a = data.address || {};
@@ -293,7 +293,7 @@ function Book({ city, notebook, onOpen, index, total }) {
 /* ══════════════════════════════════════════════════════
    Notebook Modal (open note)
 ══════════════════════════════════════════════════════ */
-function NotebookModal({ city, notebook, onClose, onSave }) {
+function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
   const [content, setContent] = useState("");
 
   const handleSubmit = async () =>{
@@ -341,8 +341,8 @@ function NotebookModal({ city, notebook, onClose, onSave }) {
 /* ══════════════════════════════════════════════════════
    Meadow Scene
 ══════════════════════════════════════════════════════ */
-function MeadowScene({ notebooks, onOpenBook, loadedStorage, phase, t }) {
-  const cities = Object.keys(notebooks);
+function MeadowScene({ places, onOpenBook, loadedStorage, phase, t }) {
+  const cities = Object.keys(places);
 
   return (
     <div className="meadow">
@@ -381,7 +381,7 @@ function MeadowScene({ notebooks, onOpenBook, loadedStorage, phase, t }) {
             <Book
               key={city}
               city={city}
-              notebook={notebooks[city]}
+              places={places[city]}
               onOpen={() => onOpenBook(city)}
               index={i}
               total={cities.length}
@@ -494,6 +494,14 @@ export default function App() {
 
     const newEntry = await addPlaceEntry(currentPlace.id, content, null);
     setEntries((prev) => [newEntry, ...prev]);
+
+    setPlaces((prev) => ({
+      ...prev,
+      [currentPlace.city_key]: {
+        ...prev[currentPlace.city_key],
+        entries: [newEntry, ...(prev[currentPlace.city_key]?.entries || [])],
+      },
+    }));
   };
 
   const handleLocate = useCallback(async () => {
@@ -580,7 +588,7 @@ export default function App() {
 
         {/* meadow */}
         <MeadowScene
-          notebooks={notebooks}
+          places={places}
           onOpenBook={setOpenCity}
           loadedStorage={loadedStorage}
           phase={phase}
@@ -613,12 +621,12 @@ export default function App() {
           <p className="footer__hint">{t.footerHint}</p>
         </footer>
 
-        {openCity && (
+        {openCity && places[openCity] && (
           <NotebookModal
-            city={openCity}
-            notebook={notebooks[openCity]}
+            city={places[openCity].place.city}
+            entries={places[openCity].entries}
             onClose={() => setOpenCity(null)}
-            onSave={handleSave}
+            onSubmitEntry={handleSubmitEntry}
           />
         )}
       </div>

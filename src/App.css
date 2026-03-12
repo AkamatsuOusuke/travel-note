@@ -173,6 +173,11 @@ body {
 .book {
   position: absolute;
   top:100%;
+  left:40%;
+  width: 20%;
+  aspect-ratio: 640 / 480;
+  box-sizing: border-box;
+
   cursor: pointer; user-select: none;
   transform-origin: center bottom;
   animation: bookAppear 0.8s cubic-bezier(.22,.68,0,1.1) var(--appear-delay, 0s) both;
@@ -200,14 +205,8 @@ body {
 /*.book__body { display: flex; align-items: stretch; filter: drop-shadow(0 4px 14px #00000055); }*/
 
 .book__body {
-  position: relative;
-  width: 100px;
-  aspect-ratio: 640 / 480;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotateX(30deg) rotateZ(-6deg);
-  transform-style: preserve-3d;
+  position: absolute;
+  inset: 0;
 
   background-image: url("./assets/本.png");
   background-size: contain;
@@ -215,13 +214,13 @@ body {
   background-repeat: no-repeat;
 }
 
-/*.book {
+.book {
   outline: 2px solid red;
 }
 
 .book__body {
   outline: 2px solid blue;
-}*/
+}
 
 /*本uiパーツ*/
 /*.book__spine {
