@@ -205,22 +205,34 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotateX(58deg) rotateZ(-6deg);
+  transform: rotateX(30deg) rotateZ(-6deg);
   transform-style: preserve-3d;
 }
 
 .book__photo {
-  width: 78%;
+  width: 40%;
   height: auto;
   position:absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-8deg); /*落ちてる感*/
+  top: 145%;
+  transform: translate(-50%, -50%) rotate(-3deg); /*落ちてる感*/
   display: block;
   object-fit: contain;
   user-select: none;
   pointer-events: none;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,0.22));
+}
+
+.book {
+  outline: 2px solid red;
+}
+
+.book__body {
+  outline: 2px solid blue;
+}
+
+.book__photo {
+  outline: 2px solid yellow;
 }
 
 /*本uiパーツ*/

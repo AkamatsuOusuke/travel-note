@@ -13,7 +13,7 @@ const TRANSLATIONS = {
     appEyebrow: "わたしの", appTitle: "旅のノート",
     notebookCount: (n) => n > 0 ? `${n}つの土地の記憶` : "まだ記憶がありません",
     emptyHint: "ボタンを押すと、今いる場所のノートが草原に現れます",
-    locateBtn: "この場所のノートを開く", locating: "取得中…",
+    locateBtn: "ノートを探す", locating: "取得中…",
     locatedMsg: (c) => `✦  ${c} のノートを開きました`,
     errorDenied: "位置情報の使用が拒否されました。",
     errorUnavailable: "位置情報を取得できませんでした。",
@@ -31,7 +31,7 @@ const TRANSLATIONS = {
     appEyebrow: "my", appTitle: "Travel Journal",
     notebookCount: (n) => n > 0 ? `${n} place${n > 1 ? "s" : ""} remembered` : "no memories yet",
     emptyHint: "Tap the button — a notebook will appear in the meadow.",
-    locateBtn: "Open notebook for this place", locating: "Locating…",
+    locateBtn: "Search the notebook", locating: "Locating…",
     locatedMsg: (c) => `✦  Opened notebook for ${c}`,
     errorDenied: "Location access was denied.",
     errorUnavailable: "Could not retrieve your location.",
@@ -403,16 +403,28 @@ export default function App() {
     });
   }, []);
 
+  // 起動時
+  useEffect(() => {
+    if (loadedStorage) {
+      setTimeout(() => {
+        handleLocate();
+      }, 600);
+    }
+  }, [loadedStorage, handleLocate]);
+
   const handleLangChange = (code) => { setLang(code); saveLang(code); };
 
   const handleLocate = useCallback(async () => {
     setPhase("locating"); setErrorMsg("");
+    // 使えない端末を弾く
     if (!navigator.geolocation) { setErrorMsg(t.errorGeo); setPhase("error"); return; }
     navigator.geolocation.getCurrentPosition(
+      // 成功時
       async (pos) => {
         try {
           const city = await fetchCityName(pos.coords.latitude, pos.coords.longitude, lang);
           setCurrentCity(city);
+          // ノート作成
           setNotebooks((prev) => {
             if (prev[city]) { setPhase("ready"); setOpenCity(city); return prev; }
             const next = {
@@ -422,8 +434,8 @@ export default function App() {
             saveAllNotebooks(next);
             return next;
           });
-          setPhase("ready");
-          setOpenCity(city);
+          setPhase("ready");// 本が出現する状態
+          /*setOpenCity(city);*/
         } catch { setErrorMsg(t.errorNetwork); setPhase("error"); }
       },
       (err) => {
@@ -476,7 +488,8 @@ export default function App() {
 
           <button
             className={`locate-btn ${phase === "locating" ? "locate-btn--loading" : "locate-btn--idle"}`}
-            onClick={handleLocate}
+            /*onClick={handleLocate}*/
+            onClick={openCity}// 追加した
             disabled={phase === "locating"}
           >
             {phase === "locating" ? (
