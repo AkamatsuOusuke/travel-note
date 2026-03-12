@@ -214,13 +214,13 @@ body {
   background-repeat: no-repeat;
 }
 
-.book {
+/*.book {
   outline: 2px solid red;
 }
 
 .book__body {
   outline: 2px solid blue;
-}
+}*/
 
 /*本uiパーツ*/
 /*.book__spine {
