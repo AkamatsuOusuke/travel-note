@@ -203,7 +203,7 @@ body {
   height: 10px; background: #00000066; border-radius: 50%; filter: blur(5px); pointer-events: none;
 }
 
-.book__body { display: flex; align-items: stretch; filter: drop-shadow(0 4px 14px #00000055); }
+/*.book__body { display: flex; align-items: stretch; filter: drop-shadow(0 4px 14px #00000055); }*/
 
 .book__body {
   position: absolute;
@@ -222,7 +222,7 @@ body {
 @keyframes bookDrop {
   0% {
     opacity: 0;
-    transform: translateY(-120px) rotate(30deg) scale(0.92);
+    transform: translateY(-200px) rotate(30deg) scale(0.92);
   }
   60% {
     opacity: 1;
