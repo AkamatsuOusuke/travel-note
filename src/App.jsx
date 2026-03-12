@@ -58,7 +58,7 @@ const TRANSLATIONS = {
     save: "Save", saved: "✦ Saved",
     placeholder: (c) => `Write freely about your time in ${c}…\n\nPlaces visited, food tasted, people met, feelings felt.`,
   },
- /* fr: {
+/*  fr: {
     appEyebrow: "mon", appTitle: "Journal de voyage",
     notebookCount: (n) => n > 0 ? `${n} lieu${n > 1 ? "x" : ""} mémorisé${n > 1 ? "s" : ""}` : "aucun souvenir encore",
     emptyHint: "Appuyez sur le bouton — un carnet apparaîtra dans la prairie.",
@@ -431,9 +431,6 @@ async function addPlaceEntry(placeId, content, authorName = null) {
   if (error) throw error;
   return data;
 }
-
-
-
 
 /* ══════════════════════════════════════════════════════
    Main App

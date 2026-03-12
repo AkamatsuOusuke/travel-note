@@ -173,8 +173,8 @@ body {
 .book {
   position: absolute;
   top:80%;
-  left:40%;
-  width: 20%;
+  left:50%;
+  width: clamp(120px, 20vw, 220px);
   aspect-ratio: 640 / 480;
   box-sizing: border-box;
 
