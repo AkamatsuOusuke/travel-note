@@ -172,7 +172,7 @@ body {
 /* ── Book ── */
 .book {
   position: absolute;
-  top:100%;
+  top:80%;
   left:40%;
   width: 20%;
   aspect-ratio: 640 / 480;
@@ -180,7 +180,7 @@ body {
 
   cursor: pointer; user-select: none;
   transform-origin: center bottom;
-  animation: bookAppear 0.8s cubic-bezier(.22,.68,0,1.1) var(--appear-delay, 0s) both;
+  /*animation: bookAppear 0.8s cubic-bezier(.22,.68,0,1.1) var(--appear-delay, 0s) both;*/
   transform: translateX(var(--book-x)) translateY(var(--book-y)) rotate(var(--book-rot));
   z-index: 10;
   transition: filter 0.2s;
@@ -202,7 +202,8 @@ body {
   position: absolute; bottom: -8px; left: 10%; right: 10%;
   height: 10px; background: #00000066; border-radius: 50%; filter: blur(5px); pointer-events: none;
 }
-/*.book__body { display: flex; align-items: stretch; filter: drop-shadow(0 4px 14px #00000055); }*/
+
+.book__body { display: flex; align-items: stretch; filter: drop-shadow(0 4px 14px #00000055); }
 
 .book__body {
   position: absolute;
@@ -212,6 +213,28 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  filter: drop-shadow(0 4px 14px #00000055);
+
+  animation: bookDrop 0.9s cubic-bezier(.18,.8,.28,1) both;
+  animation-delay: var(--appear-delay, 0s);
+}
+
+@keyframes bookDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px) rotate(-10deg) scale(0.92);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0px) rotate(2deg) scale(1);
+  }
+  80% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
 }
 
 /*.book {
@@ -285,7 +308,52 @@ body {
   font-size: 11px; color: #f0d0b0; background: #00000044; border: 1px solid #c0804433; border-radius: 6px;
   padding: 6px 14px; max-width: 320px; text-align: center; font-style: italic; backdrop-filter: blur(4px);
 }
-.footer__success { font-size: 11px; color: #d0f0a888; letter-spacing: 1.5px; font-style: italic; animation: shimmer 2.5s ease infinite; }
+
+.footer__success { 
+  position: fixed;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 11px;
+  color: #3a2a1a;
+
+  background: rgba(255, 248, 220, 0.85);
+  padding: 6px 14px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+
+  letter-spacing: 1px;
+  font-style: italic;
+  opacity: 0;
+  animation: fadeInDown 0.4s ease forwards,fadeOutUp 0.4s ease 2.2s forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 0.8;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 0.8;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+}
+
 
 .locate-btn { position: relative; border-radius: 40px; font-family: var(--serif); font-size: 13px; letter-spacing: 1.8px; cursor: pointer; transition: all 0.3s; overflow: visible; }
 .locate-btn__inner { display: flex; align-items: center; gap: 8px; }

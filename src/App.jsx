@@ -23,7 +23,7 @@ const TRANSLATIONS = {
     notebookCount: (n) => n > 0 ? `${n}つの土地の記憶` : "まだ記憶がありません",
     emptyHint: "ボタンを押すと、今いる場所のノートが草原に現れます",
     locateBtn: "ノートを探す", locating: "取得中…",
-    locatedMsg: (c) => `✦  ${c} のノートを開きました`,
+    locatedMsg: (c) => `✦  ${c} のノートが見つかりました`,
     errorDenied: "位置情報の使用が拒否されました。",
     errorUnavailable: "位置情報を取得できませんでした。",
     errorTimeout: "位置情報の取得がタイムアウトしました。",
@@ -41,7 +41,7 @@ const TRANSLATIONS = {
     notebookCount: (n) => n > 0 ? `${n} place${n > 1 ? "s" : ""} remembered` : "no memories yet",
     emptyHint: "Tap the button — a notebook will appear in the meadow.",
     locateBtn: "Search the notebook", locating: "Locating…",
-    locatedMsg: (c) => `✦  Opened notebook for ${c}`,
+    locatedMsg: (c) => `✦  Searched notebook for ${c}`,
     errorDenied: "Location access was denied.",
     errorUnavailable: "Could not retrieve your location.",
     errorTimeout: "Location request timed out.",
@@ -245,47 +245,12 @@ function Book({ city, notebook, onOpen, index, total }) {
 
       {/* The book body — viewed from slightly above, lying flat */}
       <div className="book__body">
-        {/* spine (left edge) */}
-        {/* <div
-          className="book__spine"
-          style={{ background: `linear-gradient(180deg, ${pal.spine}bb 0%, ${pal.spine} 100%)` }}
-        >
-          <span className="book__spine-label" style={{ color: pal.accent + "cc" }}>
-            {city.slice(0, 7).toUpperCase()}
-          </span>
-        </div> */}
-
-        {/* cover face */}
-        {/*<div className="book__cover-wrap">*/}
-          {/* front cover — flips open */}
-          {/* <div
-            className={`book__cover ${animPhase === "opening" ? "book__cover--flipping" : ""}`}
-            style={{ background: `linear-gradient(135deg, ${pal.cover} 0%, ${pal.spine}88 100%)` }}
-          >
-            <div className="book__cover-frame" style={{ borderColor: pal.accent + "55" }} />
-            <p className="book__title" style={{ color: pal.text }}>{city}</p>
-            <div className="book__divider" style={{ background: pal.accent + "88" }} />
-            <p className="book__subtitle" style={{ color: pal.text + "99" }}>{t.travelNote}</p>
-            <div className="book__pages-edge" />
-            {notebook?.content && (
-              <div className="book__dot" style={{ background: pal.accent }} />
-            )}
-            {!notebook?.content && (
-              <span className="book__new" style={{ color: pal.accent, borderColor: pal.accent + "66" }}>{t.newLabel}</span>
-            )}
-          </div> */}
-
-          {/* inner page (revealed when cover flips) */}
-          {/* <div className="book__inner">
-            <div className="book__inner-lines" />
-          </div> */}
-        {/* </div> */}
       </div>
 
       {/* city label floating above book */}
-       <div className="book__label" style={{ color: pal.spine }}>
+       {/* <div className="book__label" style={{ color: pal.spine }}>
         {city}
-      </div>
+      </div> */}
     </div>
   );
 }
