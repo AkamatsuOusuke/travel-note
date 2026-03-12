@@ -461,7 +461,7 @@ export default function App() {
     setEntries((prev) => [newEntry, ...prev]);
 
     setPlaces((prev) => ({
-      ...prev,
+      /*...prev,*/ //前回の状態をすべて保存する。これによって蓄積されてしまう
       [currentPlace.city_key]: {
         ...prev[currentPlace.city_key],
         entries: [newEntry, ...(prev[currentPlace.city_key]?.entries || [])],
@@ -485,20 +485,32 @@ export default function App() {
 
           const place = await getOrCreatePlace(placeInfo);
           const entriesData = await fetchPlaceEntries(place.id);
+          const samePlace = currentPlace && currentPlace.city_key === place.city_key; // 同じ場所チェッカー
+
           setCurrentCity(place.city);
           setCurrentPlace(place);
           setEntries(entriesData);
 
-           setPlaces((prev) => ({
-            ...prev,
-            [place.city_key]: {
-              place,
-              entries: entriesData,
-            },
-          }));
-
-          setPhase("ready");// 本が出現する状態
-          /*setOpenCity(city);*/
+          if(!samePlace){
+            // 場所が変わったとき
+            // まず前の本を消す
+            setPlaces({});
+            setOpenCity(null);
+            
+            // 少し間を空けて新しい本を落とす
+            setTimeout(() => {
+              setPlaces({
+                [place.city_key]: {
+                  place,
+                  entries: entriesData,
+                },
+              });
+              setPhase("ready");// 本が出現する状態
+            }, 180);
+          } else {
+            // 同じ場所はそのまま
+            setPhase("ready");
+          }
         } catch { setErrorMsg(t.errorNetwork); setPhase("error"); }
       },
       (err) => {
@@ -509,13 +521,7 @@ export default function App() {
     );
   }, [lang, t]);
 
-  const handleSave = useCallback((city, content) => {
-    setNotebooks((prev) => {
-      const next = { ...prev, [city]: { ...prev[city], content, updatedAt: new Date().toLocaleDateString() } };
-      saveAllNotebooks(next);
-      return next;
-    });
-  }, []);
+ 
 
   const cityCount = Object.keys(places).length;
 
