@@ -222,7 +222,7 @@ body {
 @keyframes bookDrop {
   0% {
     opacity: 0;
-    transform: translateY(-120px) rotate(-10deg) scale(0.92);
+    transform: translateY(-120px) rotate(30deg) scale(0.92);
   }
   60% {
     opacity: 1;
