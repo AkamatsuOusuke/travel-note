@@ -172,6 +172,7 @@ body {
 /* ── Book ── */
 .book {
   position: absolute;
+  top:100%;
   cursor: pointer; user-select: none;
   transform-origin: center bottom;
   animation: bookAppear 0.8s cubic-bezier(.22,.68,0,1.1) var(--appear-delay, 0s) both;
@@ -200,27 +201,18 @@ body {
 
 .book__body {
   position: relative;
-  width: 260px;
+  width: 100px;
   aspect-ratio: 640 / 480;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: rotateX(30deg) rotateZ(-6deg);
   transform-style: preserve-3d;
-}
 
-.book__photo {
-  width: 40%;
-  height: auto;
-  position:absolute;
-  left: 50%;
-  top: 145%;
-  transform: translate(-50%, -50%) rotate(-3deg); /*落ちてる感*/
-  display: block;
-  object-fit: contain;
-  user-select: none;
-  pointer-events: none;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.22));
+  background-image: url("./assets/本.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .book {
@@ -229,10 +221,6 @@ body {
 
 .book__body {
   outline: 2px solid blue;
-}
-
-.book__photo {
-  outline: 2px solid yellow;
 }
 
 /*本uiパーツ*/
