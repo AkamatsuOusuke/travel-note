@@ -403,15 +403,6 @@ export default function App() {
     });
   }, []);
 
-  // 起動時
-  useEffect(() => {
-    if (loadedStorage) {
-      setTimeout(() => {
-        handleLocate();
-      }, 600);
-    }
-  }, [loadedStorage, handleLocate]);
-
   const handleLangChange = (code) => { setLang(code); saveLang(code); };
 
   const handleLocate = useCallback(async () => {
@@ -455,6 +446,16 @@ export default function App() {
   }, []);
 
   const cityCount = Object.keys(notebooks).length;
+
+  
+  // 起動時
+  useEffect(() => {
+    if (loadedStorage) {
+      setTimeout(() => {
+        handleLocate();
+      }, 600);
+    }
+  }, [loadedStorage, handleLocate]);
 
   return (
     <LangContext.Provider value={{ lang, t }}>
