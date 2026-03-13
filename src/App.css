@@ -102,7 +102,7 @@ body {
   animation: riseUp 1s ease both;
   background: linear-gradient(180deg, #00000055 0%, transparent 100%);
 }
-.header__eyebrow { font-size: 10px; color: #d0e8c088; letter-spacing: 5px; font-style: italic; margin-bottom: 4px; }
+.header__eyebrow { font-size: 16px; color: #d0e8c088; letter-spacing: 5px; font-style: italic; margin-bottom: 4px; }
 .header__title   { font-size: 28px; font-weight: 300; font-style: italic; color: #f0f8e8; letter-spacing: 3px; text-shadow: 0 2px 20px #00000088; }
 .header__divider { width: 36px; height: 1px; background: linear-gradient(90deg, transparent, #a0c06088, transparent); margin: 8px auto 6px; }
 .header__count   { font-size: 11px; color: #b0c89088; letter-spacing: 1.5px; font-style: italic; }
@@ -164,6 +164,8 @@ body {
 }
 
 .meadow__hint {
+  position: absolute;
+  top:28%;
   font-size: 13px; color: #f0f8e8cc; font-style: italic;
   letter-spacing: 0.5px; text-align: center;
   text-shadow: 0 1px 10px #00000099; line-height: 1.8;

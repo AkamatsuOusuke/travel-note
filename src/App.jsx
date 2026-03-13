@@ -23,8 +23,7 @@ const BG_IMAGE = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA8Q1JFQVR
 ══════════════════════════════════════════════════════ */
 const TRANSLATIONS = {
   ja: {
-    appEyebrow: "わたしの", appTitle: "旅のノート",
-    notebookCount: (n) => n > 0 ? `${n}つの土地の記憶` : "まだ記憶がありません",
+    appEyebrow: "わたしの", appTitle: "旅ノート",
     emptyHint: "ボタンを押すと、今いる場所のノートが草原に現れます",
     locateBtn: "ノートを探す", locating: "取得中…",
     locatedMsg: (c) => `✦  ${c} のノートが見つかりました`,
@@ -32,7 +31,7 @@ const TRANSLATIONS = {
     errorUnavailable: "位置情報を取得できませんでした。",
     errorTimeout: "位置情報の取得がタイムアウトしました。",
     errorGeo: "このブラウザは位置情報に対応していません。",
-    errorNetwork: "市町村の取得に失敗しました。",
+    errorNetwork: "場所の取得に失敗しました。",
     footerHint: "位置情報で現在地を取得します。データはこのブラウザに保存されます。",
     travelNote: "旅のノート", newLabel: "new",
     notebookEyebrow: "TRAVEL NOTE", notebookTitle: (c) => `${c}　旅のノート`,
@@ -42,10 +41,9 @@ const TRANSLATIONS = {
   },
   en: {
     appEyebrow: "my", appTitle: "Travel Journal",
-    notebookCount: (n) => n > 0 ? `${n} place${n > 1 ? "s" : ""} remembered` : "no memories yet",
     emptyHint: "Tap the button — a notebook will appear in the meadow.",
-    locateBtn: "Search the notebook", locating: "Locating…",
-    locatedMsg: (c) => `✦  Searched notebook for ${c}`,
+    locateBtn: "Find notebook", locating: "Locating…",
+    locatedMsg: (c) => `✦  Notebook found for ${c}`,
     errorDenied: "Location access was denied.",
     errorUnavailable: "Could not retrieve your location.",
     errorTimeout: "Location request timed out.",
@@ -616,7 +614,6 @@ const playOpenSfx = () => {
           <p className="header__eyebrow">{t.appEyebrow}</p>
           <h1 className="header__title">{t.appTitle}</h1>
           <div className="header__divider" />
-          <p className="header__count">{t.notebookCount(cityCount)}</p>
         </header>
 
         {/* meadow */}
