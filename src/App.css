@@ -357,8 +357,8 @@ body {
 /*音量ボタン*/
 .bgm-toggle {
   position: fixed;
-  top: 14px;
-  right: 140px;
+  top: 52px;
+  right: 16px;
 
   padding: 5px 10px;
   border-radius: 20px;
