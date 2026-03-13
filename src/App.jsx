@@ -40,6 +40,7 @@ const TRANSLATIONS = {
     emptyEntries: "まだ記録はありません。",
     entryPlaceholder: "この場所の思い出を書いてください",
     submit: "投稿",
+    sharedNotebookTitle: (c) => `${c}のノート`,
     placeholder: (c) => `${c} での思い出を、自由に綴ってください…\n\n訪れた場所、食べたもの、出会った人、感じたこと。`,
   },
   en: {
@@ -291,7 +292,7 @@ function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
     <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="notebook-page">
         <div className="notebook-page__header">
-          <div>{city}のノート</div>
+          <div>{t.sharedNotebookTitle(city)}</div>
           <button onClick={onClose}>✕</button>
         </div>
 
@@ -313,7 +314,7 @@ function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
             className="notebook-page__textarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="{t.entryPlaceholder}"
+            placeholder={t.entryPlaceholder}
           />
 
           <button onClick={handleSubmit}>{t.submit}</button>
