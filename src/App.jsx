@@ -570,20 +570,20 @@ export default function App() {
 
   useEffect(() => {
     dropSfxRef.current = new Audio(sfxDrop);
-    dropSfxRef.current.volume = 0.45;
+    dropSfxRef.current.volume = 0.20;
 
     openSfxRef.current = new Audio(sfxOpen);
     openSfxRef.current.volume = 0.35;
   }, []);
 
   const playDropSfx = () => {
-    if (!dropSfxRef.current) return;
+    if (!dropSfxRef.current || !bgmOn) return;
     dropSfxRef.current.currentTime = 0;
     dropSfxRef.current.play().catch(() => {});
   };
 
 const playOpenSfx = () => {
-    if (!openSfxRef.current) return;
+    if (!openSfxRef.current || !bgmOn) return;
     openSfxRef.current.currentTime = 0;
     openSfxRef.current.play().catch(() => {});
   };
