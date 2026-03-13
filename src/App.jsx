@@ -34,9 +34,12 @@ const TRANSLATIONS = {
     errorNetwork: "場所の取得に失敗しました。",
     footerHint: "位置情報で現在地を取得します。データはこのブラウザに保存されます。",
     travelNote: "旅のノート", newLabel: "new",
-    notebookEyebrow: "TRAVEL NOTE", notebookTitle: (c) => `${c}　旅のノート`,
+    notebookEyebrow: "TRAVEL NOTE", notebookTitle: (c) => `${c}旅のノート`,
     createdAt: (d) => `${d} に作成`, newNote: "新しいノート",
     save: "保存", saved: "✦ 保存しました",
+    emptyEntries: "まだ記録はありません。",
+    entryPlaceholder: "この場所の思い出を書いてください",
+    submit: "投稿",
     placeholder: (c) => `${c} での思い出を、自由に綴ってください…\n\n訪れた場所、食べたもの、出会った人、感じたこと。`,
   },
   en: {
@@ -54,6 +57,10 @@ const TRANSLATIONS = {
     notebookEyebrow: "TRAVEL NOTE", notebookTitle: (c) => c,
     createdAt: (d) => `created on ${d}`, newNote: "new notebook",
     save: "Save", saved: "✦ Saved",
+    emptyEntries: "No notes yet.",
+    entryPlaceholder: "Write a memory about this place",
+    submit: "Post",
+    sharedNotebookTitle: (c) => `${c} Notebook`,
     placeholder: (c) => `Write freely about your time in ${c}…\n\nPlaces visited, food tasted, people met, feelings felt.`,
   },
 /*  fr: {
@@ -271,6 +278,7 @@ function Book({ city, notebook, onOpen, onPlayOpenSfx, index, total }) {
    Notebook Modal (open note)
 ══════════════════════════════════════════════════════ */
 function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
+  const {t} = useLang();
   const [content, setContent] = useState("");
 
   const handleSubmit = async () =>{
@@ -297,7 +305,7 @@ function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
                 </div>
               ))
             ) : (
-              <p>まだ記録はありません。</p>
+              <p>{t.emptyEntries}</p>
             )}
           </div>
 
@@ -305,10 +313,10 @@ function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
             className="notebook-page__textarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="この場所の思い出を書いてください"
+            placeholder="{t.entryPlaceholder}"
           />
 
-          <button onClick={handleSubmit}>投稿</button>
+          <button onClick={handleSubmit}>{t.submit}</button>
         </div>
       </div>
     </div>
