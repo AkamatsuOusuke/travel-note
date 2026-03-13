@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback, createContext, useContext } from "react";
 import "./App.css";
 // import book from "./assets/本.png"; // 実験用
 
@@ -216,15 +216,20 @@ function LangSwitcher({ lang, onChange }) {
    Book — lying flat on grass, zoom + flip open
    animPhase: "idle" → "zooming"(350ms) → "opening"(700ms) → done
 ══════════════════════════════════════════════════════ */
+function getRandomBookTransform() {
+  const x = (Math.random() - 0.5) * 60;   // 横 -30%〜30%
+  const y = Math.random() * 10;           // 少し高さランダム
+  const rot = (Math.random() - 0.5) * 16; // 回転 -8〜8deg
+
+  return { x, y, rot };
+}
+
 function Book({ city, notebook, onOpen, onPlayOpenSfx, index, total }) {
   const { t } = useLang();
   const pal = getPalette(city); // 都市ごとに色を変える
   const [animPhase, setAnimPhase] = useState("idle");
 
-  // 本を並べる処理（いらない）
-  const spreadX = total <= 1 ? 0 : (index / (total - 1) - 0.5) * 52;
-  const spreadY = (index % 3) * 4;
-  const rot = -8 + ((index * 37) % 16); // slight random tilt per book
+  const random = useMemo(() => getRandomBookTransform(), []);
 
   const handleClick = () => {
     if (animPhase !== "idle") return;
@@ -242,10 +247,10 @@ function Book({ city, notebook, onOpen, onPlayOpenSfx, index, total }) {
     <div
       className={`book book--${animPhase}`}
       style={{
-        "--book-x": `${spreadX}%`,
-        "--book-y": `${spreadY}px`,
-        "--book-rot": `${rot}deg`,
-        "--appear-delay": `${index * 0.12}s`,
+        "--book-x": `${random.x}%`,
+        "--book-y": `${random.y}px`,
+        "--book-rot": `${random.rot}deg`,
+        "--appear-delay": `${Math.random() * 0.25}s`,
       }}
       onClick={handleClick}
     >
