@@ -99,6 +99,7 @@ body {
 .header {
   position: absolute; top: 0; left: 0; right: 0; z-index: 20;
   padding: 20px 24px 12px; text-align: center; pointer-events: none;
+  padding-top: 60px;
   animation: riseUp 1s ease both;
   background: linear-gradient(180deg, #00000055 0%, transparent 100%);
 }
