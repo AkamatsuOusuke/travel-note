@@ -420,7 +420,7 @@ body {
   background-image: repeating-linear-gradient(180deg, transparent, transparent 31px, #c8a06022 31px, #c8a06022 32px);
   background-position: 0 62px; opacity: 0.7;
 }
-.notebook-page__header { padding: 20px 22px 13px; border-bottom: 1px solid #c8a06033; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; position: relative; z-index: 1; }
+.notebook-page__header { font-size: 20px; padding: 20px 22px 13px; border-bottom: 1px solid #c8a06033; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; position: relative; z-index: 1; }
 .notebook-page__eyebrow { font-size: 9px; color: var(--ink-3); letter-spacing: 4px; margin-bottom: 4px; }
 .notebook-page__city    { font-size: 20px; font-weight: 300; font-style: italic; color: var(--ink); letter-spacing: 1.5px; }
 .notebook-page__date    { font-size: 10px; color: var(--ink-3); margin-top: 3px; font-style: italic; }

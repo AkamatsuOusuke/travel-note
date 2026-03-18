@@ -275,11 +275,36 @@ function Book({ city, notebook, onOpen, onPlayOpenSfx, index, total }) {
   );
 }
 
+function formatEntryDate(dateString, lang) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  if (lang === "ja") {
+    return date.toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
 /* ══════════════════════════════════════════════════════
    Notebook Modal (open note)
 ══════════════════════════════════════════════════════ */
 function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
-  const {t} = useLang();
+  const {t, lang} = useLang();
   const [content, setContent] = useState("");
 
   const handleSubmit = async () =>{
@@ -301,7 +326,7 @@ function NotebookModal({ city, entries, onClose, onSubmitEntry }) {
             {entries.length > 0 ? (
               entries.map((entry) => (
                 <div key={entry.id} className="entry-card">
-                  <div className="entry-date">{entry.created_at}</div>
+                  <div className="entry-date">{formatEntryDate(entry.created_at, lang)}</div>
                   <div className="entry-content">{entry.content}</div>
                 </div>
               ))
