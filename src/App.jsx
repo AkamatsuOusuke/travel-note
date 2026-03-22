@@ -438,11 +438,18 @@ async function getOrCreatePlace(placeInfo) {
     .single();
 
   if (fetchError) throw fetchError;
+
+  if (!data?.id) throw new Error("No place id returned");
+
   return data;
 }
 
 // 投稿取得関数
 async function fetchPlaceEntries(placeId) {
+  if (!placeId) {
+    throw new Error("placeId is undefined");
+  }
+
   const { data, error } = await supabase
     .from("place_entries")
     .select("*")
@@ -528,6 +535,10 @@ export default function App() {
           );
 
           const place = await getOrCreatePlace(placeInfo);
+          if (!place || !place.id) {
+            console.error("place is invalid:", place);
+            throw new Error("Failed to get place id");
+          }
           const entriesData = await fetchPlaceEntries(place.id);
           const samePlace = currentPlace && currentPlace.city_key === place.city_key; // 同じ場所チェッカー
 
