@@ -415,30 +415,30 @@ function MeadowScene({ places, onOpenBook, onPlayOpenSfx, loadedStorage, phase, 
 async function getOrCreatePlace(placeInfo) {
   const { cityKey, city, prefecture, country, lat, lng } = placeInfo;
 
-  const { data: existing, error: findError } = await supabase
+  const { error: upsertError } = await supabase
+    .from("places")
+    .upsert(
+      {
+        city_key: cityKey,
+        city,
+        prefecture,
+        country,
+        lat,
+        lng,
+      },
+      { onConflict: "city_key" }
+    );
+
+  if (upsertError) throw upsertError;
+
+  const { data, error: fetchError } = await supabase
     .from("places")
     .select("*")
     .eq("city_key", cityKey)
-    .maybeSingle();
-
-  if (findError) throw findError;
-  if (existing) return existing;
-
-  const { data: inserted, error: insertError } = await supabase
-    .from("places")
-    .insert({
-      city_key: cityKey,
-      city,
-      prefecture,
-      country,
-      lat,
-      lng,
-    })
-    .select()
     .single();
 
-  if (insertError) throw insertError;
-  return inserted;
+  if (fetchError) throw fetchError;
+  return data;
 }
 
 // 投稿取得関数
