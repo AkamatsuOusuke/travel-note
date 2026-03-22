@@ -158,16 +158,16 @@ async function fetchCityName(lat, lng, lang) {
   const prefecture = a.state || a.province || "";
   const city = a.city || a.town || a.village || a.county || a.state_district || "Here";
 
-  const normalize = (s) =>
-    String(s).trim().toLowerCase().replace(/\s+/g, "-");
-  
-  const cityKey = `${normalize(country)}|${normalize(prefecture)}|${normalize(city)}`;
+   // 保存用キーは言語ではなく位置ベースで固定
+  const roundedLat = Number(lat).toFixed(2);
+  const roundedLng = Number(lng).toFixed(2);
+  const cityKey = `${country}|${roundedLat}|${roundedLng}`;
 
   return {
     country,
     prefecture,
-    city,
-    cityKey,
+    city, // 表示用
+    cityKey, // 保存用
     lat,
     lng,
   };
